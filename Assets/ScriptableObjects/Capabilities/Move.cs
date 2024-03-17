@@ -19,12 +19,15 @@ public class Move : MonoBehaviour
     private float maxSpeedChange;
     private float acceleration;
     private bool onGround;
+
+    private Animator playerAnimation;
     
     // Start is called before the first frame update
     void Awake()
     {
         body = GetComponent<Rigidbody2D>();
         ground = GetComponent<Ground>();
+        playerAnimation = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -32,6 +35,8 @@ public class Move : MonoBehaviour
     {
         direction.x = input.RetrieveMoveInput();
         desiredVelocity = new Vector2(direction.x, 0f) * Mathf.Max(maxSpeed - ground.GetFriction(), 0f);
+        playerAnimation.SetFloat("speed", Mathf.Abs(body.velocity.x));
+        playerAnimation.SetBool("onGround", onGround);
     }
 
     private void FixedUpdate()
