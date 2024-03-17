@@ -6,6 +6,8 @@ TagManager:
   tags:
   - fallDetection
   - crystal
+  - spike
+  - portal
   layers:
   - Default
   - TransparentFX

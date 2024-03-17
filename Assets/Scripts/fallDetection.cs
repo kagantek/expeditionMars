@@ -5,11 +5,13 @@ using UnityEngine.SceneManagement;
 
 public class fallDetection : MonoBehaviour
 {
+    public HealthBar healthBar2;
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.gameObject.CompareTag("Player"))
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            collision.transform.position = Move.getStartPosition();
+            healthBar2.Damage(0.125f);
         }
     }
 

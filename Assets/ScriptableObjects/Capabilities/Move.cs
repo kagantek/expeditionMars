@@ -1,7 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Move : MonoBehaviour
 {
@@ -19,8 +21,10 @@ public class Move : MonoBehaviour
     private float maxSpeedChange;
     private float acceleration;
     private bool onGround;
+    public static Vector3 initialTransform; 
 
     private Animator playerAnimation;
+    public Text scoreText;
     
     // Start is called before the first frame update
     void Awake()
@@ -28,6 +32,8 @@ public class Move : MonoBehaviour
         body = GetComponent<Rigidbody2D>();
         ground = GetComponent<Ground>();
         playerAnimation = GetComponent<Animator>();
+        scoreText.text = "Score: " + Scoring.totalScore;
+        initialTransform = transform.position;
     }
 
     // Update is called once per frame
@@ -48,6 +54,7 @@ public class Move : MonoBehaviour
         
         playerAnimation.SetFloat("speed", Mathf.Abs(body.velocity.x));
         playerAnimation.SetBool("onGround", onGround);
+        scoreText.text = "Score: " + Scoring.totalScore;
     }
 
     private void FixedUpdate()
@@ -73,4 +80,11 @@ public class Move : MonoBehaviour
         playerAnimation.SetFloat("speed", Mathf.Abs(body.velocity.x));
         playerAnimation.SetBool("onGround", onGround);
     }
+
+    public static Vector3 getStartPosition()
+    {
+        return initialTransform;
+    }
+
+    
 }
