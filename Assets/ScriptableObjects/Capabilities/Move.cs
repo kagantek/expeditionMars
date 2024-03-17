@@ -35,6 +35,17 @@ public class Move : MonoBehaviour
     {
         direction.x = input.RetrieveMoveInput();
         desiredVelocity = new Vector2(direction.x, 0f) * Mathf.Max(maxSpeed - ground.GetFriction(), 0f);
+        
+        if (direction.x > 0)
+        {
+            transform.localScale = new Vector2(1f, 1f);
+        }
+        
+        if (direction.x < 0)
+        {
+            transform.localScale = new Vector2(-1f, 1f);
+        }
+        
         playerAnimation.SetFloat("speed", Mathf.Abs(body.velocity.x));
         playerAnimation.SetBool("onGround", onGround);
     }
@@ -47,7 +58,19 @@ public class Move : MonoBehaviour
         acceleration = onGround ? maxAcceleration : maxAirAcceleration;
         maxSpeedChange = acceleration * Time.deltaTime;
         velocity.x = Mathf.MoveTowards(velocity.x, desiredVelocity.x, maxSpeedChange);
-
         body.velocity = velocity;
+        
+        if (direction.x > 0)
+        {
+            transform.localScale = new Vector2(1f, 1f);
+        }
+        
+        if (direction.x < 0)
+        {
+            transform.localScale = new Vector2(-1f, 1f);
+        }
+        
+        playerAnimation.SetFloat("speed", Mathf.Abs(body.velocity.x));
+        playerAnimation.SetBool("onGround", onGround);
     }
 }
